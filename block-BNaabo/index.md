@@ -5,6 +5,7 @@ Create a basic express server
 Q. Write code to add express.json middleware
 
 - send json data from postman using POST http method on '/json' route.
+
 - console.log(req.body) to see all json data in console on a POST route on '/json'.
 
 Q. Add express.urlencoded as middleware
