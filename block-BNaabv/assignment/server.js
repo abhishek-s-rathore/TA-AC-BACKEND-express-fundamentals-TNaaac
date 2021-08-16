@@ -1,3 +1,4 @@
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const logger = require('morgan');
 // const cookieParser = require('cookie-parser');
@@ -13,8 +14,14 @@ app.use(express.static(__dirname + `/assets`));
 
 // ThirdParty middlewares
 app.use(logger('dev'));
+app.use(cookieParser());
 
 // Inbuilt middlewares
+app.use((req, res, next) => {
+  res.cookie('username', 'abhi123');
+  next();
+});
+
 app.use('/admin', (req, res, next) => {
   next('Unauthrised User');
 });
@@ -33,7 +40,12 @@ app.post('/form', (req, res) => {
 });
 
 app.post('/json', (req, res) => {
-  res.send(req.body);
+  res.json(req.body);
+});
+
+app.get('/users/:username', (req, res) => {
+  var username = req.params.username;
+  res.send(`<h2>${username}</h2>`);
 });
 
 //  Handling Errors
